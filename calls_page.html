@@ -1,0 +1,321 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <style>
+        * {
+            margin: 0;
+        }
+        
+        .header {
+            width: auto;
+            height: 12vh;
+            background-color: rgb(17, 73, 17);
+            color: whitesmoke;
+            font-size: 2vw;
+        }
+        
+        .body {
+            width: auto;
+            height: 85vh;
+            background-color: whitesmoke;
+        }
+        
+        .header_top {
+            display: flex;
+            justify-content: space-between;
+            padding: 1vh 1vw;
+        }
+        
+        .header_top_right {
+            display: flex;
+            justify-content: space-around;
+            padding: 1vh 1vw;
+            width: 25vw;
+        }
+        
+        .header_top_right>h2 {
+            cursor: pointer;
+        }
+        
+        .header_bottom {
+            display: flex;
+            margin-top: 2.5vh;
+            justify-content: space-around;
+        }
+        
+        .header_bottom>h2 {
+            color: rgb(110, 163, 110);
+            cursor: pointer;
+        }
+        
+        .header_bottom>h2:hover {
+            color: whitesmoke;
+        }
+        
+        .body {
+            overflow: auto;
+        }
+        
+        .body::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .user_box_left>img {
+            width: 10vw;
+            height: 8vh;
+            border-radius: 5vh;
+        }
+        
+        .user_box {
+            display: flex;
+            justify-content: space-between;
+            padding: 2vh 2vw;
+            background-color: rgb(245, 240, 240);
+            border-bottom: 2px solid rgb(153, 150, 150);
+            height: 6.5vh;
+            margin: 1vw;
+            cursor: pointer;
+        }
+        
+        .user_box:hover {
+            background-color: rgb(214, 210, 210);
+        }
+        
+        .user_box_left {
+            display: flex;
+        }
+        
+        .user_box_left_info>h1 {
+            font-size: 20px;
+            margin-left: 2vw;
+            font-weight: 600;
+        }
+        
+        .user_box_left_info>p {
+            margin-left: 2vw;
+            font-size: 15px;
+            color: rgb(143, 140, 140);
+        }
+        
+        .fixed_btn {
+            position: fixed;
+            padding: 1vh 1vw;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+            left: 86vw;
+            top: 85vh;
+            background-color: rgb(9, 175, 9);
+            width: 8vw;
+            height: 6vh;
+            border-radius: 50px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .fixed_btn>i {
+            color: whitesmoke;
+            font-size: 1.5em;
+        }
+        
+        .call_not_attend_arrow {
+            color: red;
+        }
+        
+        .call_attend_arrow {
+            color: green;
+        }
+        
+        .call_type {
+            color: rgb(15, 75, 15);
+        }
+        
+        .menu_div {
+            position: absolute;
+            width: 30vw;
+            height: 35vh;
+            padding: 3vh 4vw;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+            background-color: rgb(243, 233, 233);
+            margin-top: -30vh;
+            margin-left: 61vw;
+            display: none;
+        }
+        
+        .menu_div>h2 {
+            font-size: 18px;
+            margin-bottom: 1.5vh;
+            color: rgb(73, 70, 70);
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .menu_div>h2:hover {
+            background-color: rgb(219, 212, 212);
+        }
+        
+        .search_div {
+            position: absolute;
+            height: 20vh;
+            width: 96vw;
+            margin-left: 2vw;
+            margin-top: -30vh;
+            background-color: rgb(208, 208, 212);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+            display: none;
+        }
+        
+        .search_div>.search_div1 {
+            margin-top: 8vh;
+        }
+        
+        .search_div1 {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search_div1>input {
+            padding: 1vh 3vw;
+            width: 70vw;
+            outline-style: none;
+            border: none;
+            background-color: rgb(241, 236, 236);
+            border-radius: 20px;
+            margin-left: 2vw;
+            font-weight: 600;
+        }
+        
+        .search_div1>h3 {
+            margin-left: 2vw;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        var socket = io.connect('http://localhost:3030', {
+            transports: ['websocket']
+        });
+        socket.on('connect', function() {
+            console.log('connected');
+        });
+
+        $(document).ready(function() {
+
+            $('.user_box').click(function() {
+
+                window.location.href = './whats2.html'
+            });
+
+            $('#calls_page').css({
+                'color': 'whitesmoke',
+                'border-bottom': '2px solid whitesmoke'
+            });
+
+            $('#chats_page').click(function() {
+                window.location.href = './whats1.html'
+
+            });
+
+            $('#status_page').click(function() {
+                window.location.href = './status_page.html'
+
+            });
+
+
+            $('#menu_btn').click(function() {
+                $('.menu_div').toggle();
+            });
+
+            $('#search_btn').click(function() {
+                $('.search_div').toggle();
+            });
+            $('.phone_page_btn').click(function() {
+
+                window.location.href = './select_contects.html'
+
+            });
+
+        });
+    </script>
+
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="header_top">
+            <h1>WhatsApp</h1>
+            <div class="header_top_right">
+                <h2 id='search_btn'><i class="fas fa-search"></i></h2>
+                <h2 id='menu_btn'><i class="fas fa-ellipsis-v"></i></h2>
+            </div>
+        </div>
+        <div class="header_bottom">
+            <h2 id='camera_page'><i class="fas fa-camera"></i></h2>
+            <h2 id='chats_page'>CHATS</h2>
+            <h2 id='status_page'>STATUS</h2>
+            <h2 id='calls_page'>CALLS</h2>
+        </div>
+    </div>
+    <div class="body">
+
+        <div id='userbox' class="user_box">
+            <div class="user_box_left">
+                <img src="girl1.jpg" alt="">
+                <div class="user_box_left_info">
+                    <h1>830234340</h1>
+
+                    <p> <i class="fas fa-long-arrow-alt-down call_not_attend_arrow"></i> today</p>
+                </div>
+            </div>
+            <div class="user_box_right">
+                <p><i class="fas fa-video call_type"></i></p>
+            </div>
+        </div>
+
+        <div id='userbox' class="user_box">
+            <div class="user_box_left">
+                <img src="girl1.jpg" alt="">
+                <div class="user_box_left_info">
+                    <h1>833434697280</h1>
+
+                    <p> <i class="fas fa-long-arrow-alt-up call_attend_arrow"></i> today</p>
+                </div>
+            </div>
+            <div class="user_box_right">
+                <i class="fas fa-phone call_type"></i>
+            </div>
+        </div>
+
+        <div class="menu_div">
+            <h2>New group</h2>
+            <h2>New broadcast</h2>
+            <h2>WhatsApp Web</h2>
+            <h2>Starred messages</h2>
+            <h2>Payments</h2>
+            <h2>Settings</h2>
+        </div>
+        <div class="search_div">
+            <div class="search_div1">
+                <h3><i class="fas fa-arrow-left back_arrow"></i></h3>
+                <input type='text' placeholder='search here'>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="fixed_btn phone_page_btn">
+            <i class="fas fa-phone"></i>
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>

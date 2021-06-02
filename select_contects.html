@@ -1,0 +1,266 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <style>
+        * {
+            margin: 0;
+        }
+        
+        .header {
+            background-color: rgb(5, 92, 5);
+            display: flex;
+            justify-content: space-around;
+            width: 100vw;
+            height: 8vh;
+            align-items: center;
+        }
+        
+        .header_left {
+            margin-left: -15vw;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .header_middle {
+            color: white;
+            margin-left: -30vw;
+        }
+        
+        .header_right {
+            width: 15vw;
+            margin-right: -20vw;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .header_right>h2 {
+            font-size: 15px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        #icon_img {
+            width: 9vw;
+            height: 7vh;
+            border-radius: 50px;
+        }
+        
+        .body_top {
+            margin: 1vh 2vw;
+        }
+        
+        .body_top_upper {
+            display: flex;
+            margin-bottom: 2vh;
+            align-items: center;
+            padding: 1vh;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .body_top_upper:hover {
+            background-color: rgb(233, 221, 221);
+        }
+        
+        .body_top_upper>h3 {
+            margin-left: 3vw;
+            font-weight: 600;
+            font-size: 3.5vw;
+        }
+        
+        .body_top_down>h3 {
+            margin-left: 3vw;
+            font-weight: 600;
+            font-size: 3.5vw;
+        }
+        
+        .body_top_down {
+            display: flex;
+            margin-bottom: 2vh;
+            align-items: center;
+            padding: 1vh;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .body_top_down:hover {
+            background-color: rgb(233, 221, 221);
+        }
+        
+        .body_bottom {
+            margin: 1vh 2vw;
+            padding: 1vh;
+        }
+        
+        .contact_box {
+            display: flex;
+            align-items: center;
+            padding: 1vh;
+            cursor: pointer;
+        }
+        
+        .contact_box:hover {
+            background-color: rgb(233, 221, 221);
+            border-radius: 2px;
+        }
+        
+        .contact_box_info {
+            margin-left: 4vw;
+        }
+        
+        .contact_box_info>p {
+            color: gray;
+        }
+        
+        .menu_div {
+            position: absolute;
+            width: 30vw;
+            height: 35vh;
+            padding: 3vh 4vw;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+            background-color: rgb(243, 233, 233);
+            margin-top: -45vh;
+            margin-left: 61vw;
+            display: none;
+        }
+        
+        .menu_div>h2 {
+            font-size: 18px;
+            margin-bottom: 1.5vh;
+            color: rgb(73, 70, 70);
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        .menu_div>h2:hover {
+            background-color: rgb(219, 212, 212);
+        }
+        
+        .search_div {
+            position: absolute;
+            height: 20vh;
+            width: 96vw;
+            margin-left: 2vw;
+            margin-top: -45vh;
+            background-color: rgb(208, 208, 212);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+            display: none;
+        }
+        
+        .search_div>.search_div1 {
+            margin-top: 8vh;
+        }
+        
+        .search_div1 {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search_div1>input {
+            padding: 1vh 3vw;
+            width: 70vw;
+            outline-style: none;
+            border: none;
+            background-color: rgb(241, 236, 236);
+            border-radius: 20px;
+            margin-left: 2vw;
+            font-weight: 600;
+        }
+        
+        .search_div1>h3 {
+            margin-left: 2vw;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.back_arrow').click(function() {
+                window.location.href = './whats1.html'
+            });
+            $('#menu_btn').click(function() {
+                $('.menu_div').toggle();
+            });
+
+            $('#search_btn').click(function() {
+                $('.search_div').toggle();
+            });
+
+            $('.contact_box').click(function() {
+                window.location.href = './whats2.html'
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header_left">
+            <h3><i class="fas fa-arrow-left back_arrow"></i></h3>
+        </div>
+        <div class="header_middle">
+            <h3>Select contact</h3>
+            <p>51 contacts</p>
+        </div>
+        <div class="header_right">
+            <h2 id='search_btn'><i class="fas fa-search"></i></h2>
+            <h2 id='menu_btn'><i class="fas fa-ellipsis-v"></i></h2>
+        </div>
+    </div>
+    <div class="body">
+        <div class="body_top">
+            <div class="body_top_upper">
+                <img id='icon_img' src="girl1.jpg" alt="">
+                <h3>New group</h3>
+
+            </div>
+            <div class="body_top_down">
+                <img id='icon_img' src="girl1.jpg" alt="">
+                <h3>New contact</h3>
+
+            </div>
+
+        </div>
+        <div class="body_bottom">
+            <div class="contact_box">
+                <img id='icon_img' src="girl1.jpg" alt="">
+                <div class="contact_box_info">
+                    <h3>Pappu</h3>
+                    <p>this is my style</p>
+                </div>
+
+
+            </div>
+            <div class="contact_box">
+                <img id='icon_img' src="girl1.jpg" alt="">
+                <div class="contact_box_info">
+                    <h3>Pappu</h3>
+                    <p>this is my style</p>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <div class="menu_div">
+        <h2>New group</h2>
+        <h2>New broadcast</h2>
+        <h2>WhatsApp Web</h2>
+        <h2>Starred messages</h2>
+        <h2>Payments</h2>
+        <h2>Settings</h2>
+    </div>
+    <div class="search_div">
+        <div class="search_div1">
+            <h3><i class="fas fa-arrow-left back_arrow"></i></h3>
+            <input type='text' placeholder='search here'>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

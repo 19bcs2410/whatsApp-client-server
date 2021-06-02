@@ -1,0 +1,346 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <style>
+        * {
+            margin: 0;
+        }
+        
+        .header {
+            background-color: rgb(15, 70, 15);
+            display: flex;
+            justify-content: space-between;
+            color: whitesmoke;
+            font-size: 3vw;
+        }
+        
+        .header_left {
+            display: flex;
+            padding: 1vh 1vw;
+            align-items: center;
+            justify-content: space-around;
+            width: 30vw;
+        }
+        
+        .header_left>h3 {
+            cursor: pointer;
+        }
+        
+        .header_left>img {
+            width: 9vw;
+            height: 7vh;
+            border-radius: 30px;
+        }
+        
+        .header_right {
+            display: flex;
+            width: 25vw;
+            padding: 2vh 1vw;
+            justify-content: space-around;
+        }
+        
+        .header_right>h2 {
+            font-size: 2.5vh;
+            cursor: pointer;
+        }
+        
+        .body {
+            background-color: rgb(173, 173, 173);
+            height: 80vh;
+            overflow: auto;
+        }
+        
+        .body::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgb(173, 173, 173)
+        }
+        
+        .footer_left {
+            display: flex;
+            flex: 80%;
+        }
+        
+        .footer_left>.emo {
+            margin-left: -83vw;
+            font-size: 4vw;
+            margin-top: 3vh;
+            cursor: pointer;
+        }
+        
+        .footer_left>.cam {
+            margin-left: 65vw;
+            font-size: 4vw;
+            margin-top: 3vh;
+            cursor: pointer;
+        }
+        
+        .footer_left>.pin {
+            margin-left: 4vw;
+            font-size: 4vw;
+            margin-top: 3vh;
+            cursor: pointer;
+        }
+        
+        .footer_left>input {
+            padding-left: 8vw;
+            padding-right: 16vw;
+            padding-top: 1.5vh;
+            padding-bottom: 1.5vh;
+            width: 85vw;
+            height: 8vh;
+            border-radius: 30px;
+            outline-style: none;
+            border: none;
+            background-color: rgb(241, 236, 236);
+            font-weight: 600;
+            margin-top: 1vh;
+        }
+        
+        .footer_right {
+            background-color: rgb(7, 46, 7);
+            display: flex;
+            width: 10vw;
+            height: 6vh;
+            justify-content: space-around;
+            align-items: center;
+            color: whitesmoke;
+            border-radius: 50px;
+            padding: 1vh 0vw;
+            margin: 1vw;
+            cursor: pointer;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+        }
+        
+        .left_msg {
+            display: flex;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+            justify-content: space-between;
+            width: 50vw;
+            background-color: white;
+            border-radius: 4px;
+            padding: 1vh 2vw;
+            margin-left: 1vw;
+            margin-top: 1vh;
+            margin-bottom: 1vh;
+            float: left;
+        }
+        
+        .left_msg_info>h2 {
+            font-size: 3vw;
+        }
+        
+        .left_msg>h3 {
+            font-size: 2.5vw;
+            color: gray;
+        }
+        
+        .right_msg {
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+            width: 50vw;
+            height: auto;
+            background-color: rgb(33, 250, 87);
+            border-radius: 4px;
+            padding: 1vh 2vw;
+            margin: 1vh;
+            float: right;
+        }
+        
+        .right_msg_info>h2 {
+            font-size: 3vw;
+        }
+        
+        .right_msg>h3 {
+            font-size: 2.5vw;
+            color: gray;
+        }
+        
+        .items_div {
+            position: absolute;
+            background-color: rgb(218, 218, 219);
+            width: 93vw;
+            height: 35vh;
+            margin-top: -45vh;
+            margin-left: 2vw;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .items_div>h2 {
+            width: 10vw;
+            height: 8vh;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 4vw;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .select_items_div {
+            display: none;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        var socket = io.connect('http://localhost:3030', {
+            transports: ['websocket']
+        });
+        socket.on('connect', function() {
+            console.log('connected');
+
+        });
+
+        socket.on('take_msg', function(data) {
+
+            let left_msg_component = $(`<div class='left_msg'></div>`).html(`
+            <div class='left_msg_info'>
+                <h2>rahul</h2>
+                <p>${data['msg']}</p>
+            </div> 
+            <h3>${data['time']}</h3>
+            
+            `);
+
+            $('.body').append(left_msg_component);
+
+
+        });
+
+        $(document).ready(function() {
+
+
+            $('.back_arrow').click(function() {
+                window.location.href = './whats1.html'
+
+            });
+            $('.pin').click(function() {
+                $('.select_items_div').toggle();
+
+            });
+
+            $('#input_msg_val').focus(function() {
+
+                $(this).keypress(function(e) {
+
+
+                    if (e.keyCode == 13) {
+                        let msg_val = $(this).val().trim();
+                        if (msg_val) {
+
+                            let h_time = new Date().getHours();
+                            let m_time = new Date().getMinutes();
+                            let meriadian = '';
+
+                            if (h_time >= 12) {
+                                meriadian = 'pm';
+                            } else {
+                                meriadian = 'am';
+
+                            }
+
+                            socket.emit('send_msg', {
+                                'msg': msg_val,
+                                'time': `${h_time}:${m_time} ${meriadian}`
+                            });
+
+                            let rgt_msg_component = $(`<div class='right_msg'></div>`).html(`<div class='right_msg_info'>
+                                <h2> rahul</h2> 
+                                <p>${msg_val}</p>
+                            </div>
+                            <h3>${new Date().getHours()}:${new Date().getMinutes()} ${meriadian}</h3>`);
+
+                            $('.body').append(rgt_msg_component);
+                            $(this).val('');
+
+                        }
+
+
+                    }
+                })
+            });
+
+
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="header">
+        <div class="header_left">
+            <h3><i class="fas fa-arrow-left back_arrow"></i></h3>
+            <img src="girl1.jpg" alt="">
+            <h2>Guddu</h2>
+        </div>
+        <div class="header_right">
+
+            <h2><i class="fas fa-video"></i></h2>
+            <h2><i class="fas fa-phone-alt"></i></h2>
+            <h2><i class="fas fa-ellipsis-v"></i></h2>
+        </div>
+    </div>
+    <div class="body">
+        <div class="left_msg">
+            <div class="left_msg_info">
+                <h2>rahul</h2>
+                <p>this is message </p>
+            </div>
+            <h3>3:45 pm</h3>
+        </div>
+        <div class="right_msg">
+            <div class="right_msg_info">
+                <h2>rahul</h2>
+                <p>ffffffffff </p>
+            </div>
+            <h3>3:45 pm</h3>
+        </div>
+
+    </div>
+    <div class="footer">
+        <div class="footer_left">
+            <input id='input_msg_val' type="text" placeholder="Type a message">
+            <h2 class='emo'><i class="far fa-laugh-beam"></i></h2>
+            <h2 class='cam'><i class="fas fa-camera"></i></h2>
+            <h2 class='pin'><i class="fas fa-paperclip"></i></h2>
+        </div>
+        <div class="footer_right">
+            <h2><i class="fas fa-microphone"></i></h2>
+        </div>
+
+    </div>
+    <div class="select_items_div">
+        <div class="items_div">
+
+            <h2 style="background-color:rgb(62, 62, 119);" class='emo'><i class="fas fa-file"></i></h2>
+            <h2 style="background-color: rgb(235, 30, 64);" class='cam'><i class="fas fa-camera"></i></h2>
+            <h2 style="background-color:purple " class='pin'><i class="fas fa-file-image"></i></h2>
+            <h2 style="background-color: rgb(209, 141, 13);" class='emo'><i class="fas fa-headphones"></i></h2>
+            <h2 style="background-color: rgb(136, 179, 136);" class='cam'><i class="fas fa-rupee-sign"></i></h2>
+            <h2 style="background-color: green;" class='pin'><i class="fas fa-map-marker-alt"></i></h2>
+            <h2 style="background-color: rgb(108, 108, 255);" class='emo'><i class="fas fa-user-circle"></i></h2>
+
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>
